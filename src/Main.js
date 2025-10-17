@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import StartPage from "./StartPage";
 import TestPage from "./TestPage";
 import EndPage from "./EndPage";
+import "./style/Main.scss";
 
 /* 설정 */
 const LIMIT_SECONDS = 40 * 60; // 40분
@@ -151,7 +152,6 @@ const Main = () => {
       setPhase("start");
     }}
   >
-    상식 모의고사
   </h1>
 
   {phase === "exam" && (
@@ -209,7 +209,7 @@ const Main = () => {
       )}
 
       <footer style={{ marginTop: 18, fontSize: 12, color: "#888", textAlign: "center" }}>
-        © {new Date().getFullYear()} Mock Exam Template
+        © {new Date().getFullYear()} Made In 'Do Dong'
       </footer>
     </div>
   );

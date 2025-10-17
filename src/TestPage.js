@@ -15,13 +15,15 @@ const TestPage = ({
   visibleIndices = null,
   onBackToStart = null,
 }) => {
-  const total = (visibleIndices ? visibleIndices.length : questions.length);
+  const total = visibleIndices ? visibleIndices.length : questions.length;
   const qIndex = visibleIndices ? visibleIndices[current] : current;
   const q = questions[qIndex];
   const pct = Math.round(((current + 1) / total) * 100);
 
   const isAnswered = (qq, idx) =>
-    qq.type === "mc" ? answers[idx] !== null : String(answers[idx] ?? "").trim().length > 0;
+    qq.type === "mc"
+      ? answers[idx] !== null
+      : String(answers[idx] ?? "").trim().length > 0;
 
   const allAnswered = useMemo(() => {
     if (!visibleIndices) return questions.every((qq, i) => isAnswered(qq, i));
@@ -31,8 +33,7 @@ const TestPage = ({
   const setAnswer = (val) => setAnswerAt(qIndex, val);
 
   return (
-    <>
-      {/* 상단 진행도 + (필요 시) 처음으로만 표시. 타이머는 제거. */}
+    <div className="exam-enter">
       <div
         style={{
           marginBottom: 10,
@@ -53,7 +54,13 @@ const TestPage = ({
 
       <div style={S.grid}>
         {/* 좌측 고정 OMR */}
-        <CardPage q={q} value={answers[qIndex]} onChange={setAnswer} S={S} ABCDE={ABCDE} />
+        <CardPage
+          q={q}
+          value={answers[qIndex]}
+          onChange={setAnswer}
+          S={S}
+          ABCDE={ABCDE}
+        />
 
         {/* 우측 문제 + 네비 + 번호바 */}
         <div>
@@ -68,7 +75,12 @@ const TestPage = ({
                 {q.choices.map((c, i) => (
                   <li
                     key={i}
-                    style={{ padding: 10, border: "1px solid #eee", borderRadius: 8, marginBottom: 6 }}
+                    style={{
+                      padding: 10,
+                      border: "1px solid #eee",
+                      borderRadius: 8,
+                      marginBottom: 6,
+                    }}
                   >
                     {ABCDE[i]}. {c}
                   </li>
@@ -132,7 +144,7 @@ const TestPage = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
