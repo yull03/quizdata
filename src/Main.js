@@ -156,12 +156,12 @@ const Main = () => {
   </h1>
 
   {phase === "exam" && (
-    <div style={{ textAlign: "right" }}>
-      <div style={{ fontSize: 12, color: "#666" }}>남은 시간</div>
+    <div style={{ textAlign: "right"}}>
+      <div style={{ fontSize: 38, color: "#666" }}>남은 시간</div>
       <div
         style={{
           fontFamily: "monospace",
-          fontSize: 18,
+          fontSize: 38,
           fontWeight: 700,
           color: seconds <= 30 ? "#d11" : "#000",
         }}
