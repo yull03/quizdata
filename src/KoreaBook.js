@@ -28,13 +28,13 @@ const KoreaBook = ({ variant = "spread", title, footer, left, right, children })
     <section className="kb kb--spread">
       <div className="kb__hinge" aria-hidden />
       <div className="kb__spread">
-        <article className="kb__page kb__page--left">
+        <article className="kb__page kb__page--left" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
           {title && <div className="kb__heading">{title}</div>}
           <div className="kb__content">{left || children}</div>
           {footer && <div className="kb__footer">{footer}</div>}
         </article>
 
-        <article className="kb__page kb__page--right">
+        <article className="kb__page kb__page--right" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
           {title && <div className="kb__heading kb__heading--ghost" aria-hidden>{title}</div>}
           <div className="kb__content">{right}</div>
           {footer && <div className="kb__footer kb__footer--right">{footer}</div>}
