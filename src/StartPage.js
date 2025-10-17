@@ -46,18 +46,18 @@ const StartPage = ({ total, limitMinutes, onStart }) => {
         aria-label="시험 시작"
       >
         {/* 뒤에 숨어있다 펼쳐질 종이들 */}
-        <div className="sheet s1" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
-        <div className="sheet s2" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
-        <div className="sheet s3" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
-        <div className="sheet s4" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
-        <div className="sheet s5" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
-          <span>도</span>
+        <div className="sheet s1" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
+        <span>도</span>
           <span>화</span>
           <span>비</span>
           <span>메</span>
           <span>롱</span>
           <span className="face">😝</span>
         </div>
+        <div className="sheet s2" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
+        <div className="sheet s3" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
+        <div className="sheet s4" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
+        <div className="sheet s5" aria-hidden="true" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}/>
 
         {/* 메인 카드 면 */}
         <div className="startcard__inner" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>

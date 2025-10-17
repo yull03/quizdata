@@ -22,56 +22,42 @@ const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }
     return { correctCount: c, wrongIds: wIds, wrongIndices: wIdx };
   }, [questions, answers]);
 
-  // 점수 규칙: 1문제=5점, 만점=100점
+  // 채점 규칙
   const perQuestion = 5;
   const rawScore = Math.min(correctCount * perQuestion, 100);
   const isPass = rawScore >= 60;
 
-  // 2초 동안 0 → rawScore 애니메이션 + 집계 종료 플래그
+  // 2초 점수 카운트업
   const [displayScore, setDisplayScore] = useState(0);
-  const [isCountingDone, setIsCountingDone] = useState(false);
-
+  const [scoreDone, setScoreDone] = useState(false);
   useEffect(() => {
-    setIsCountingDone(false);
-    setDisplayScore(0);
-
-    const duration = 2000; // ms
+    const duration = 2000;
     const start = performance.now();
     let rafId;
 
     const tick = (now) => {
       const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
       const val = Math.round(rawScore * eased);
       setDisplayScore(val);
-      if (t < 1) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        setDisplayScore(rawScore);
-        setIsCountingDone(true);
-      }
+      if (t < 1) rafId = requestAnimationFrame(tick);
+      else setScoreDone(true); // 끝났을 때 표시
     };
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
   }, [rawScore]);
 
   return (
-    <section className={`end-card ${isCountingDone ? "done" : "counting"}`}
-    style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
+    <section className="end-card" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
       <header className="end-header">
         <div className="end-header__left">
           <h1 className="end-title">시험 결과</h1>
-
-          <div className="end-score" aria-live="polite" aria-atomic="true">
-            점수:
-            <span className={`end-score__value ${isCountingDone ? "settled" : "animating"}`}>
-              {displayScore}
-            </span>
-            / 100
+          <div className="end-score">
+            점수: <span className="end-score__value" aria-live="polite">{displayScore}</span> / 100
           </div>
 
-          {/* 합산이 끝난 뒤에만 노출 */}
-          {isCountingDone && (
+          {/* 합격/불합격은 카운트 끝난 뒤에만 노출 */}
+          {scoreDone && (
             <div className={`end-status ${isPass ? "pass" : "fail"}`}>
               {isPass ? "합격" : "불합격"}
             </div>
@@ -81,10 +67,7 @@ const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }
         <div className="end-actions">
           <button className="btn" onClick={onRestart}>처음으로</button>
           {wrongIds.length > 0 && (
-            <button
-              className="btn btn--primary"
-              onClick={() => onRetryWrong(wrongIndices)}
-            >
+            <button className="btn btn--primary" onClick={() => onRetryWrong(wrongIndices)}>
               틀린 문제 다시 풀기
             </button>
           )}
@@ -111,6 +94,15 @@ const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }
           </div>
         )}
       </section>
+
+      {/* ▼▼ 새로 추가: 두루마리 + 페이드인 문구 ▼▼ */}
+      <footer className={`end-scroll ${scoreDone ? "show" : ""} ${isPass ? "pass" : "fail"}`}>
+        <div className="scroll-wrap">
+          <p className="scroll-line" style={{ animationDelay: "0ms"  }}>왕관을 들어야 하는가?</p>
+          <p className="scroll-line" style={{ animationDelay: "180ms" }}>아님 사약 들어야 하는가?</p>
+        </div>
+      </footer>
+      {/* ▲▲ 여기까지 ▲▲ */}
     </section>
   );
 };

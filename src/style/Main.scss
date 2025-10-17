@@ -90,18 +90,18 @@ body{ color:$ink; font-family:"Noto Serif KR", serif; }
 .startcard.is-hovered .sheet,
 .startcard:hover .sheet{ opacity:1; }
 
-.startcard.is-hovered .s1,
-.startcard:hover .s1{ transform: translate(3px,6px) rotate(0.2deg); transition-delay: 0ms;  }
-.startcard.is-hovered .s2,
-.startcard:hover .s2{ transform: translate(9px,12px) rotate(1.2deg); transition-delay: 40ms; }
+.startcard.is-hovered .s5,
+.startcard:hover .s5{ transform: translate(3px,6px) rotate(0.2deg); transition-delay: 0ms;  }
+.startcard.is-hovered .s4,
+.startcard:hover .s4{ transform: translate(9px,12px) rotate(1.2deg); transition-delay: 40ms; }
 .startcard.is-hovered .s3,
 .startcard:hover .s3{ transform: translate(15px,18px) rotate(2.2deg); transition-delay: 80ms; }
-.startcard.is-hovered .s4,
-.startcard:hover .s4{ transform: translate(18px,24px) rotate(3.2deg); transition-delay:120ms; }
-.startcard.is-hovered .s5,
-.startcard:hover .s5{ transform: translate(24px,36px) rotate(4.2deg); transition-delay:160ms; 
+.startcard.is-hovered .s2,
+.startcard:hover .s2{ transform: translate(18px,24px) rotate(3.2deg); transition-delay:120ms; }
+.startcard.is-hovered .s1,
+.startcard:hover .s1{ transform: translate(28px,38px) rotate(10deg); transition-delay:160ms; 
 }
-.s5{
+.s1{
   padding-top: 1rem;
   span{
     display: flex;
@@ -122,9 +122,9 @@ body{ color:$ink; font-family:"Noto Serif KR", serif; }
 .startcard.is-hovered .s3,
 .startcard:hover .s3{ box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 6px 14px rgba(0,0,0,.08); }
 .startcard.is-hovered .s4,
-.startcard:hover .s4{ box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 8px 18px rgba(0,0,0,.10); }
+.startcard:hover .s2{ box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 8px 18px rgba(0,0,0,.10); }
 .startcard.is-hovered .s5,
-.startcard:hover .s5{ box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 10px 22px rgba(0,0,0,.12); }
+.startcard:hover .s1{ box-shadow: inset 0 0 0 1px rgba(0,0,0,.05), 0 10px 22px rgba(0,0,0,.12); }
 
 /* 클릭 떠나기 애니메이션 */
 .startcard.is-leaving{ animation: startcardLeave var(--dur) var(--bezier) forwards; }
