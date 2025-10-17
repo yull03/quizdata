@@ -69,7 +69,7 @@ const StartPage = ({ total, limitMinutes, onStart }) => {
             <br />
             - 제 1품 -
           </h1>
-          <p className="startcard__subtitle">청춘지사를 가려내는 과목이라.</p>
+          <p className="startcard__subtitle"> 쁘락지를 가려내는 과목이라.</p>
 
           <div className="startcard__input-wrap" onClick={stopAll}>
             <input
