@@ -5,12 +5,12 @@ const TestPage = ({
   questions,
   current,
   setCurrent,
-  seconds,           // 전달받지만 화면에 표시 안 함
+  seconds,           // 전달받지만 화면 표시x
   onSubmit,
   answers,
   setAnswerAt,
   S,
-  timeTxt,          // 전달받지만 화면에 표시 안 함
+  timeTxt,          // 전달받지만 화면 표시x
   ABCDE,
   visibleIndices = null,
   onBackToStart = null,
