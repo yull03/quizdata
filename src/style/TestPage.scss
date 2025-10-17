@@ -1,0 +1,134 @@
+
+.testpage {
+    --ink: #1b1b1b;
+    --paper: #f7f2e9;
+    --paper-edge: #e7decd;
+    --line: rgba(0,0,0,.06);
+    --accent: #1f2a44;
+    --btn: #fff;
+    --btn-border: #ddd;
+    --primary: #111;
+    font-size: 24px;
+  
+    color: var(--ink);
+    font-family: "Noto Serif KR", serif;
+  }
+  
+  /* 상단 헤더 */
+  .tp-header{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .tp-left, .tp-right { display:flex; align-items:center; gap:8px; justify-content:flex-start; }
+  .tp-right { justify-content:flex-end; }
+  
+  .tp-pager{
+    display:flex; align-items:center; gap:12px;
+    font-weight:700; color:#333; letter-spacing:.5px;
+  }
+  .tp-page{ min-width: 80px; text-align:center; }
+  
+  .tp-arrow{
+    border:1px solid var(--btn-border);
+    background:var(--btn);
+    padding:8px 12px; border-radius:10px; cursor:pointer;
+  }
+  .tp-arrow:disabled{ opacity:.5; cursor:not-allowed; }
+  
+  /* 본문 2단: 왼쪽 책 페이지, 오른쪽 OMR */
+  .tp-main{
+    display:grid;
+    grid-template-columns: minmax(0, 1fr) 300px; /* 우측 OMR 고정 */
+    gap: 18px;
+    align-items: start;
+  }
+  
+  /* 책 페이지 시트 */
+  .tp-sheet{
+    background:
+      linear-gradient(180deg, transparent 31px, var(--line) 32px) repeat-y,
+      radial-gradient(120% 80% at 50% -10%, #fff, var(--paper) 65%);
+    background-size: 100% 32px, auto;
+    border:1px solid var(--paper-edge);
+    border-radius: 14px;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.6),
+      0 10px 24px rgba(0,0,0,.08);
+    padding: 22px 20px 18px;
+    position: relative;
+  }
+  
+  /* 책 테두리 금장 느낌 살짝 */
+  .tp-sheet::after{
+    content:"";
+    position:absolute; inset:6px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(201,162,74,.35);
+    pointer-events:none;
+  }
+  
+  /* 문제 본문 */
+  .tp-q-title{
+    font-size: 36px; font-weight: 800; margin: 0 0 12px 0; color: var(--accent);
+  }
+  .tp-choices{
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 8px;
+  }
+  .tp-choice{
+    padding: 10px 12px;
+    border:1px solid #eee;
+    border-radius: 10px;
+    background: #fff;
+  }
+  
+  /* 단답 안내 */
+  .tp-short-answer-note{ font-size:24px; color:#666; }
+  
+  /* 하단 액션 */
+  .tp-actions{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 10px; margin-top: 16px;
+  }
+  .tp-btn{
+    padding: 10px 16px;
+    border:1px solid var(--btn-border);
+    border-radius:10px;
+    background: var(--btn);
+    cursor:pointer;
+  }
+  .tp-btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .tp-primary{
+    border-color: var(--primary);
+    background: var(--primary);
+    color:#fff;
+  }
+  
+  /* 번호 점프바 */
+  .tp-numberbar{
+    margin-top: 12px;
+    display:flex; flex-wrap:wrap; gap:6px;
+  }
+  .tp-num{
+    padding:6px 10px;
+    border:1px solid #ddd; border-radius: 8px;
+    background:#fff; font-size:12px; cursor:pointer;
+  }
+  .tp-num.is-answered{ background:#f3f3f3; }
+  .tp-num.is-current{ border-color:#111; background:#f7f7f7; }
+  
+  /* 우측 OMR 패널 */
+  .tp-omr{
+    position: sticky;
+    top: 16px; /* 스크롤 시 상단 고정 */
+    align-self: start;
+  }
+  
+  /* 반응형 */
+  @media (max-width: 980px){
+    .tp-main{ grid-template-columns: 1fr; }
+    .tp-omr{ position: static; }
+  }

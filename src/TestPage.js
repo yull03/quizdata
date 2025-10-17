@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import CardPage from "./CardPage";
+import './style/TestPage.scss';
 
 const TestPage = ({
   questions,
@@ -18,7 +19,6 @@ const TestPage = ({
   const total = visibleIndices ? visibleIndices.length : questions.length;
   const qIndex = visibleIndices ? visibleIndices[current] : current;
   const q = questions[qIndex];
-  const pct = Math.round(((current + 1) / total) * 100);
 
   const isAnswered = (qq, idx) =>
     qq.type === "mc"
@@ -32,99 +32,102 @@ const TestPage = ({
 
   const setAnswer = (val) => setAnswerAt(qIndex, val);
 
+  const goPrev = () => setCurrent((i) => Math.max(0, i - 1));
+  const goNext = () => setCurrent((i) => Math.min(total - 1, i + 1));
+
   return (
-    <div className="exam-enter">
-      <div
-        style={{
-          marginBottom: 10,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ fontSize: 12, color: "#666" }}>
-          진행: {current + 1} / {total} ({pct}%)
+    <div className="exam-enter testpage">
+      {/* 상단: 홈 버튼 + 페이지 네비 */}
+      <header className="tp-header">
+        <div className="tp-left">
+          {onBackToStart && (
+            <button className="tp-btn tp-home" onClick={onBackToStart}>
+              처음으로
+            </button>
+          )}
         </div>
-        {onBackToStart && (
-          <button style={S.btn} onClick={onBackToStart}>
-            처음으로
+
+        <div className="tp-pager" role="navigation" aria-label="문제 네비게이션">
+          <button
+            className="tp-arrow"
+            onClick={goPrev}
+            disabled={current === 0}
+            aria-label="이전 문제"
+            title="이전 문제"
+          >
+            ◀
           </button>
-        )}
-      </div>
+          <span className="tp-page">
+            {current + 1} / {total}
+          </span>
+          <button
+            className="tp-arrow"
+            onClick={goNext}
+            disabled={current === total - 1}
+            aria-label="다음 문제"
+            title="다음 문제"
+          >
+            ▶
+          </button>
+        </div>
 
-      <div style={S.grid}>
-        {/* 좌측 고정 OMR */}
-        <CardPage
-          q={q}
-          value={answers[qIndex]}
-          onChange={setAnswer}
-          S={S}
-          ABCDE={ABCDE}
-        />
+        <div className="tp-right">{/* 타이머 숨김 유지 */}</div>
+      </header>
 
-        {/* 우측 문제 + 네비 + 번호바 */}
-        <div>
-          {/* 문제 카드 */}
-          <section style={S.card}>
-            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 10 }}>
+      {/* 본문: 책 페이지 + 우측 고정 OMR */}
+      <div className="tp-main">
+        <section className="tp-sheet" aria-labelledby="tp-question-title">
+          {/* 문제 본문 */}
+          <div className="tp-question">
+            <h2 id="tp-question-title" className="tp-q-title">
               {q.id}. {q.question}
-            </div>
+            </h2>
 
             {q.type === "mc" ? (
-              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              <ul className="tp-choices">
                 {q.choices.map((c, i) => (
-                  <li
-                    key={i}
-                    style={{
-                      padding: 10,
-                      border: "1px solid #eee",
-                      borderRadius: 8,
-                      marginBottom: 6,
-                    }}
-                  >
+                  <li key={i} className="tp-choice">
                     {ABCDE[i]}. {c}
                   </li>
                 ))}
               </ul>
             ) : (
-              <div style={{ fontSize: 13, color: "#666" }}>
-                답변은 좌측 OMR 입력창에 작성한다.
+              <div className="tp-short-answer-note">
+                답변은 우측 OMR 입력창에 작성한다.
               </div>
             )}
-          </section>
+          </div>
 
-          {/* 네비게이션 */}
-          <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+          {/* 하단 버튼: 이전/다음/제출 */}
+          <div className="tp-actions">
             <button
-              style={{ ...S.btn, ...(current === 0 ? S.btnDisabled : {}) }}
+              className="tp-btn"
               disabled={current === 0}
-              onClick={() => setCurrent((i) => Math.max(0, i - 1))}
-              aria-label="이전 문제"
+              onClick={goPrev}
             >
-              ◀
-            </button>
-            <button
-              style={{ ...S.btn, ...(current === total - 1 ? S.btnDisabled : {}) }}
-              disabled={current === total - 1}
-              onClick={() => setCurrent((i) => Math.min(total - 1, i + 1))}
-              aria-label="다음 문제"
-            >
-              ▶
+              ◀ 이전
             </button>
 
-            <div style={{ marginLeft: "auto" }} />
-
             <button
-              style={{ ...S.btnPrimary, ...(allAnswered ? {} : S.btnDisabled) }}
+              className="tp-btn tp-primary"
               disabled={!allAnswered}
               onClick={onSubmit}
+              title={!allAnswered ? "모든 문항에 답해야 제출할 수 있습니다" : "제출"}
             >
               제출
             </button>
+
+            <button
+              className="tp-btn"
+              disabled={current === total - 1}
+              onClick={goNext}
+            >
+              다음 ▶
+            </button>
           </div>
 
-          {/* 하단 번호 점프바: visibleIndices가 있으면 오답만 */}
-          <div style={S.numberBar}>
+          {/* 번호 점프바: visibleIndices가 있으면 오답만 */}
+          <div className="tp-numberbar">
             {(visibleIndices ?? questions.map((_, i) => i)).map((i, idx) => {
               const answered = isAnswered(questions[i], i);
               const isCurrent = idx === current;
@@ -132,7 +135,9 @@ const TestPage = ({
               return (
                 <button
                   key={i}
-                  style={S.numberBtn(isCurrent, answered)}
+                  className={`tp-num ${isCurrent ? "is-current" : ""} ${
+                    answered ? "is-answered" : ""
+                  }`}
                   onClick={() => setCurrent(idx)}
                   aria-label={`${label}번으로 이동`}
                   title={`${label}번 문제로 이동`}
@@ -142,7 +147,18 @@ const TestPage = ({
               );
             })}
           </div>
-        </div>
+        </section>
+
+        {/* 우측 고정 OMR */}
+        <aside className="tp-omr" aria-label="OMR 카드">
+          <CardPage
+            q={q}
+            value={answers[qIndex]}
+            onChange={setAnswer}
+            S={S}
+            ABCDE={ABCDE}
+          />
+        </aside>
       </div>
     </div>
   );
