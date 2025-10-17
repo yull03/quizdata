@@ -150,13 +150,22 @@ const Main = () => {
       </header>
 
       {phase === "start" && (
-        <StartPage
-          total={QUESTIONS.length}
-          limitMinutes={Math.floor(LIMIT_SECONDS / 60)}
-          onStart={startExam}
-          S={S}
-        />
-      )}
+  <>
+    <StartPage
+      total={QUESTIONS.length}
+      limitMinutes={Math.floor(LIMIT_SECONDS / 60)}
+      onStart={startExam}
+      S={S}
+    />
+
+    {/* 시작 화면 오른쪽 여백에 세로 문구 */}
+    <aside className="start-vertical-quotes" aria-hidden="true">
+      <span>책을 펼치면 이미 늦었다</span>
+      <span>모든 답은 도화비가 알고 있다</span>
+      <span>정답은 마음속에 있다 근데 틀릴 거다</span>
+    </aside>
+  </>
+)}
 
       {phase === "exam" && (
         <TestPage

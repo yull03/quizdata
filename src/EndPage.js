@@ -56,7 +56,8 @@ const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }
   }, [rawScore]);
 
   return (
-    <section className={`end-card ${isCountingDone ? "done" : "counting"}`}>
+    <section className={`end-card ${isCountingDone ? "done" : "counting"}`}
+    style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
       <header className="end-header">
         <div className="end-header__left">
           <h1 className="end-title">시험 결과</h1>

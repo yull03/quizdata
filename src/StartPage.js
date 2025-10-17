@@ -64,13 +64,12 @@ const StartPage = ({ total, limitMinutes, onStart }) => {
           <div className="startcard__ribbon">도동서당</div>
 
           <h1 className="startcard__title">
-            <span>도화비</span>
             <br />
-            <span className="text-main-sub">정보처리 기능사 필기</span>
+            <span className="text-main-sub">도화비 능력평가</span>
             <br />
-            제 1회
+            - 제 1품 -
           </h1>
-          <p className="startcard__subtitle">[가] 형</p>
+          <p className="startcard__subtitle">청춘지사를 가려내는 과목이라.</p>
 
           <div className="startcard__input-wrap" onClick={stopAll}>
             <input

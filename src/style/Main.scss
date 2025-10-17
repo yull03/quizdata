@@ -146,13 +146,12 @@ body{ color:$ink; font-family:"Noto Serif KR", serif; }
   padding-top: 2rem;
   font-weight:800; text-align:center;
   font-size:72px; letter-spacing:4px; color:#1f2a44; margin:0 0 10px;
-  span{ color:rgb(124, 13, 185); font-size:90px; padding: 0;}
   .text-main-sub{
     color: #be2323;
-    font-size: 75px;
+    font-size: 92px;
   }
 }
-.startcard__subtitle{ font-size:60px; margin:6px 0 18px; color:#b91c1c; }
+.startcard__subtitle{ font-size:55px; margin:6px 0 18px; color:#b91c1c; padding-bottom: 1.2rem;}
 
 .startcard__input-wrap{
   margin-top:12px; display:flex; flex-direction:column; align-items:center; gap:10px;
@@ -197,3 +196,37 @@ body{ color:$ink; font-family:"Noto Serif KR", serif; }
   .startcard:hover .sheet,
   .startcard.is-hovered .sheet{ opacity:0; transform:none; box-shadow:none; }
 }
+
+.start-vertical-quotes{
+  position: fixed;         /* 화면 기준 고정 */
+  top: 10vh;
+  right: 4vw;
+  display: flex;
+  gap: 22px;               /* 세로줄들 사이 간격 (가로 방향 간격) */
+  align-items: flex-start;
+  pointer-events: none;    /* 클릭 방해 X */
+  z-index: 1;
+  opacity: .85;
+}
+
+/* 각 문구를 세로쓰기로 */
+.start-vertical-quotes {
+  right: 20rem;
+  span{
+  writing-mode: vertical-rl;   /* 위→아래, 오른쪽→왼쪽 */
+  text-orientation: upright;   /* 글자 눕지 않게 */
+  font-family: "Noto Serif KR", serif;
+  font-size: 35px;
+  letter-spacing: 3px;
+  line-height: 1.2;
+  color: #222222;
+  text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  /* 살짝 종이 위에 인쇄한 느낌 */
+  border-radius: 6px;
+  padding-bottom: 6px;
+}}
+
+/* 아주 살짝 각도 차이로 밋밋함 방지 */
+.start-vertical-quotes span:nth-child(2){ transform: rotate(-1deg); }
+.start-vertical-quotes span:nth-child(3){ transform: rotate(.5deg); }
+.start-vertical-quotes span:nth-child(4){ transform: rotate(-.8deg); }
