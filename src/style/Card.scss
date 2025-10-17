@@ -1,0 +1,74 @@
+.omr-card {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+    font-style: normal;
+    line-height: 1.25; /* 20px 기준 안정값 */
+    font-size: 32px;
+  }
+  
+  /* 2) 옵션 영역: 배경 그리드 제거하고 row 자체를 기준선으로 */
+  .omr-options {
+    background: none;              /* 줄 밀리게 하던 그리드 제거 */
+    border: 1px solid #d7d7d7;
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+  
+  /* 3) 각 행의 고정 높이와 정중앙 정렬 */
+  .omr-row {
+    display: flex;
+    align-items: center;           /* 수직 중앙 */
+    gap: 12px;
+    min-height: 48px;              /* 고정 라인 높이 */
+    padding: 4px 6px;
+    border-bottom: 1px dashed #eaeaea;
+  }
+  .omr-row:last-child { border-bottom: 0; }
+  
+  /* 4) 원형 마킹의 수직 정렬 보정 */
+  .omr-mark {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 26px; height: 26px;
+    border: 2px solid #1f1f1f;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    background: #fff;
+    vertical-align: middle;        /* 베이스라인 들뜸 방지 */
+    transform: translateY(1px);    /* 렌더링 보정치 */
+    margin: 0;                     /* 라벨과 정확히 맞춤 */
+  }
+  .omr-mark::after {
+    content: "";
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 120ms ease;
+    background: #1f1f1f;
+  }
+  .omr-mark:checked::after { transform: scale(1); }
+  .omr-mark:focus-visible {
+    outline: 3px solid rgba(33, 150, 243, 0.35);
+    outline-offset: 2px;
+  }
+  
+  /* 5) 라벨 텍스트: 기울임 방지 + 베이스라인 균일화 */
+  .omr-label {
+    font-style: normal;
+    line-height: 1;                /* 행 높이와 분리 */
+    translate: 0 1px;              /* 수직 미세 보정 */
+    user-select: none;
+  }
+  
+  /* 6) 주관식 영역은 그대로 두되 입력창만 라인 매칭 */
+  .omr-text {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+  
+  /* 7) 모바일 보정: 같은 규칙 유지 */
+  @media (max-width: 480px) {
+    .omr-row { min-height: 44px; }
+    .omr-mark { width: 24px; height: 24px; transform: translateY(1px); }
+    .omr-mark::after { width: 14px; height: 14px; }
+  }
