@@ -64,9 +64,9 @@ const StartPage = ({ total, limitMinutes, onStart }) => {
           <div className="startcard__ribbon">도동서당</div>
 
           <h1 className="startcard__title">
-            <span>을사년</span>
+            <span>도화비</span>
             <br />
-            도깨비 능력평가
+            <span className="text-main-sub">정보처리 기능사 필기</span>
             <br />
             제 1회
           </h1>
@@ -105,7 +105,7 @@ const StartPage = ({ total, limitMinutes, onStart }) => {
       </div>
 
       <p className="start__hint">
-        책을 클릭하면 시험이 시작됩니다.
+        화면을 클릭하면 필기시험이 시작됩니다.
         <br />
         <span>© 제작자: 막걸리 (보름 뒤 청주)</span>
         <br />
