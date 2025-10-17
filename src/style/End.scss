@@ -1,0 +1,148 @@
+.end-card {
+    --border: #e3e3e3;
+    --text: #1f1f1f;
+    --muted: #8a8a8a;
+    --bg: #fff;
+    --pass: #1a7f37;
+    --fail: #d92d20;
+    --primary: #3b82f6;
+  
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    font-size: 62px; /* 요구: 기본 32px */
+    color: var(--text);
+  }
+  
+  .end-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px dashed var(--border);
+    padding-bottom: 16px;
+  }
+  
+  .end-title {
+    font-size: 72px;
+    font-weight: 800;
+    margin: 1rem 2rem;
+    color: #d92d20;
+  }
+  
+  .end-score {
+    font-weight: 700;
+    margin: 1rem 2rem;
+  }
+  .end-score__value {
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+    min-width: 3ch;
+    margin: 0 8px;
+    transform-origin: 50% 60%;
+  }
+  
+  /* 집계 중 스코어 팝 애니메이션: 2초 동안 1 -> 1.18 -> 1 로 복귀 */
+  @keyframes scorePop {
+    0%   { transform: scale(1);   filter: none; }
+    45%  { transform: scale(1.18); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
+    100% { transform: scale(1);   filter: none; }
+  }
+  .end-card.counting .end-score__value.animating {
+    animation: scorePop 2s both;
+  }
+  
+  /* 집계 끝: 정지(원래 사이즈 유지) */
+  .end-card.done .end-score__value.settled {
+    transform: scale(1);
+    filter: none;
+  }
+  
+  /* 합격/불합격 배지: 집계 완료 후에만 페이드 인 + 살짝 팝 */
+  @keyframes badgeIn {
+    0%   { opacity: 0; transform: translateY(-6px) scale(0.96); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .end-status {
+    display: inline-block;
+    margin: 1rem 1.5rem;
+    padding: 6px 14px;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+  }
+  .end-card.done .end-status { animation: badgeIn .28s ease-out forwards; }
+  
+  .end-status.pass {
+    color: var(--pass);
+    border-bottom: 6px solid #1a7f37;
+  }
+  .end-status.fail {
+    color: var(--fail);
+    border-bottom: 6px solid #d92d20;
+  }
+  
+  .end-actions {
+    display: flex;
+    gap: 15px;
+  }
+  .btn {
+    font-size: 32px;
+    line-height: 1;
+    margin: 0 0.5rem;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    background: #f8f8f8;
+    cursor: pointer;
+    transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn--primary {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  
+  .end-section-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin: 1.5rem 2rem;
+  }
+  .end-wrong { padding-top: 16px; }
+  
+  .end-empty {
+    font-size: 24px;
+    color: var(--muted);
+  }
+  
+  /* 틀린 문제 버튼 그리드 */
+  .end-wrong__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+    gap: 10px;
+    margin-left: 0.5rem;
+  }
+  .num-btn {
+    border: none;
+    font-size: 32px;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    border-bottom: 2px solid #d92d20;
+    background: #fcfcfc;
+    box-shadow: -3px -3px 15px rgba(0,0,0,0.5);
+    cursor: pointer;
+    font-weight: 800;
+    transition: background .12s ease, transform .12s ease, box-shadow .12s ease;
+  }
+  .num-btn:hover { background: #f2f6ff; transform: translateY(-1px); }
+  .num-btn:active { transform: translateY(0); }

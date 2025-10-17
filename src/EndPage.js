@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
+import "./style/End.scss";
 
-const EndPage = ({ questions, answers, S, onRestart, onGoToQuestion, onRetryWrong }) => {
+const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }) => {
   const fmt = (s) => String(s ?? "").trim().toLowerCase();
 
-  const { score, wrong, wrongIndices } = useMemo(() => {
-    let s = 0;
-    const w = [];
+  const { correctCount, wrongIds, wrongIndices } = useMemo(() => {
+    let c = 0;
+    const wIds = [];
     const wIdx = [];
     questions.forEach((q, i) => {
       const a = answers[i];
@@ -15,42 +16,90 @@ const EndPage = ({ questions, answers, S, onRestart, onGoToQuestion, onRetryWron
         const tgt = Array.isArray(q.answer) ? q.answer : [q.answer];
         ok = tgt.map(fmt).includes(fmt(a));
       }
-      if (ok) s += 1;
-      else { w.push(q.id); wIdx.push(i); }
+      if (ok) c += 1;
+      else { wIds.push(q.id); wIdx.push(i); }
     });
-    return { score: s, wrong: w, wrongIndices: wIdx };
+    return { correctCount: c, wrongIds: wIds, wrongIndices: wIdx };
   }, [questions, answers]);
 
+  // 점수 규칙: 1문제=5점, 만점=100점
+  const perQuestion = 5;
+  const rawScore = Math.min(correctCount * perQuestion, 100);
+  const isPass = rawScore >= 60;
+
+  // 2초 동안 0 → rawScore 애니메이션 + 집계 종료 플래그
+  const [displayScore, setDisplayScore] = useState(0);
+  const [isCountingDone, setIsCountingDone] = useState(false);
+
+  useEffect(() => {
+    setIsCountingDone(false);
+    setDisplayScore(0);
+
+    const duration = 2000; // ms
+    const start = performance.now();
+    let rafId;
+
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const val = Math.round(rawScore * eased);
+      setDisplayScore(val);
+      if (t < 1) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        setDisplayScore(rawScore);
+        setIsCountingDone(true);
+      }
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [rawScore]);
+
   return (
-    <section style={S.card}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-        <div>
-          <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 8 }}>결과</div>
-          <div style={{ fontSize: 18, marginBottom: 6 }}>
-            점수: {score} / {questions.length}
+    <section className={`end-card ${isCountingDone ? "done" : "counting"}`}>
+      <header className="end-header">
+        <div className="end-header__left">
+          <h1 className="end-title">시험 결과</h1>
+
+          <div className="end-score" aria-live="polite" aria-atomic="true">
+            점수:
+            <span className={`end-score__value ${isCountingDone ? "settled" : "animating"}`}>
+              {displayScore}
+            </span>
+            / 100
           </div>
+
+          {/* 합산이 끝난 뒤에만 노출 */}
+          {isCountingDone && (
+            <div className={`end-status ${isPass ? "pass" : "fail"}`}>
+              {isPass ? "합격" : "불합격"}
+            </div>
+          )}
         </div>
 
-        <div style={{ display: "flex", gap: 8 }}>
-          <button style={S.btn} onClick={onRestart}>처음으로</button>
-          {wrong.length > 0 && (
-            <button style={S.btn} onClick={() => onRetryWrong(wrongIndices)}>
+        <div className="end-actions">
+          <button className="btn" onClick={onRestart}>처음으로</button>
+          {wrongIds.length > 0 && (
+            <button
+              className="btn btn--primary"
+              onClick={() => onRetryWrong(wrongIndices)}
+            >
               틀린 문제 다시 풀기
             </button>
           )}
         </div>
-      </div>
+      </header>
 
-      <div style={{ marginTop: 16 }}>
-        <div style={{ fontWeight: 700, marginBottom: 6 }}>틀린 문제</div>
-        {wrong.length === 0 ? (
-          <div>전부 정답입니다.</div>
+      <section className="end-wrong">
+        <h2 className="end-section-title">틀린 문제</h2>
+        {wrongIds.length === 0 ? (
+          <div className="end-empty">전부 정답입니다.</div>
         ) : (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {wrong.map((qid) => (
+          <div className="end-wrong__grid">
+            {wrongIds.map((qid) => (
               <button
                 key={qid}
-                style={S.numberBtn(false, true)}
+                className="num-btn"
                 onClick={() => onGoToQuestion(qid)}
                 aria-label={`${qid}번 문제 보기`}
                 title={`${qid}번 문제로 이동`}
@@ -60,7 +109,7 @@ const EndPage = ({ questions, answers, S, onRestart, onGoToQuestion, onRetryWron
             ))}
           </div>
         )}
-      </div>
+      </section>
     </section>
   );
 };

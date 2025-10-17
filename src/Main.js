@@ -3,7 +3,7 @@ import StartPage from "./StartPage";
 import TestPage from "./TestPage";
 import EndPage from "./EndPage";
 import "./style/Main.scss";
-import './App.scss';
+import "./App.scss";
 
 /* 설정 */
 const LIMIT_SECONDS = 40 * 60; // 40분
@@ -68,23 +68,28 @@ const Main = () => {
   // 오답 재풀이 목록
   const [visibleIndices, setVisibleIndices] = useState(null); // null이면 전체
 
-  // 타이머
+  // 타이머: exam일 때만 동작, 0이면 end로 전환
   useEffect(() => {
     if (phase !== "exam") return;
-    if (seconds <= 0) {
-      setPhase("end");
-      return;
-    }
-    const t = setInterval(() => setSeconds((s) => s - 1), 1000);
-    return () => clearInterval(t);
-  }, [phase, seconds]);
+    const id = setInterval(() => {
+      setSeconds((s) => {
+        if (s <= 1) {
+          clearInterval(id);
+          setPhase("end");
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [phase]);
 
   // 액션
   const startExam = () => {
     setAnswers(QUESTIONS.map((q) => (q.type === "mc" ? null : "")));
     setCurrent(0);
     setSeconds(LIMIT_SECONDS);
-    setVisibleIndices(null); 
+    setVisibleIndices(null);
     setPhase("exam");
   };
 
@@ -108,7 +113,6 @@ const Main = () => {
   // 틀린 문제만 다시 풀기
   const retryWrong = (wrongIdxList) => {
     if (!wrongIdxList || wrongIdxList.length === 0) return;
-    // 틀린 문제들 답안 초기화
     setAnswers((prev) => {
       const next = [...prev];
       wrongIdxList.forEach((i) => {
@@ -134,43 +138,16 @@ const Main = () => {
 
   return (
     <div style={S.page}>
-<header style={S.header}>
-  {/* 제목에 클릭 이벤트 추가 */}
-  <h1
-    style={{
-      fontSize: 22,
-      fontWeight: 800,
-      margin: 0,
-      cursor: "pointer",
-      userSelect: "none",
-    }}
-    onClick={() => {
-      // 시험 중이든 결과 중이든 무조건 처음 화면으로
-      setAnswers(QUESTIONS.map((q) => (q.type === "mc" ? null : "")));
-      setCurrent(0);
-      setSeconds(LIMIT_SECONDS);
-      setVisibleIndices(null);
-      setPhase("start");
-    }}
-  >
-  </h1>
-
-  {phase === "exam" && (
-    <div style={{ textAlign: "right"}}>
-      <div style={{ fontSize: 38, color: "#666" }}>남은 시간</div>
-      <div
-        style={{
-          fontFamily: "monospace",
-          fontSize: 38,
-          fontWeight: 700,
-          color: seconds <= 30 ? "#d11" : "#000",
-        }}
-      >
-        {timeTxt(seconds)}
-      </div>
-    </div>
-  )}
-</header>
+      {/* 상단 전역 타이머는 제거. 제목 클릭 시 항상 시작화면으로 복귀 */}
+      <header style={S.header}>
+        <h1
+          style={{ fontSize: 22, fontWeight: 800, margin: 0, cursor: "pointer", userSelect: "none" }}
+          onClick={restartToStart}
+        >
+          {/* 필요하면 여기 로고나 텍스트 넣어라 */}
+        </h1>
+        <div />
+      </header>
 
       {phase === "start" && (
         <StartPage
@@ -186,15 +163,15 @@ const Main = () => {
           questions={QUESTIONS}
           current={current}
           setCurrent={setCurrent}
-          seconds={seconds}
+          seconds={seconds}          // 책 안 우측 타이머용
           onSubmit={submitExam}
           answers={answers}
           setAnswerAt={setAnswerAt}
           S={S}
-          timeTxt={timeTxt}
+          timeTxt={timeTxt}          // 포맷터 전달
           ABCDE={ABCDE}
-          visibleIndices={visibleIndices} // 오답만 재풀이 시 목록 전달
-          onBackToStart={restartToStart} // 풀이 도중에도 시작으로 복귀
+          visibleIndices={visibleIndices}
+          onBackToStart={restartToStart}
         />
       )}
 
@@ -205,10 +182,9 @@ const Main = () => {
           S={S}
           onRestart={restartToStart}
           onGoToQuestion={goToQuestionFromEnd}
-          onRetryWrong={retryWrong} // 오답만 다시 풀기
+          onRetryWrong={retryWrong}
         />
       )}
-
     </div>
   );
 };
