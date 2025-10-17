@@ -102,7 +102,6 @@ const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }
           <p className="scroll-line" style={{ animationDelay: "180ms" }}>아님 사약 들어야 하는가?</p>
         </div>
       </footer>
-      {/* ▲▲ 여기까지 ▲▲ */}
     </section>
   );
 };
