@@ -98,7 +98,7 @@ const StartPage = ({ total, limitMinutes, onStart }) => {
           </p>
 
           <div className="startcard__seal">
-            <img src="/Image/logo.png" alt="도장" className="startcard__seal-img" />
+            <img src={`${process.env.PUBLIC_URL}/Image/logo.png`} alt="도장" className="startcard__seal-img" />
           </div>
         </div>
       </div>

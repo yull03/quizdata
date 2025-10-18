@@ -189,7 +189,7 @@ const TestPage = ({
                 처음으로
               </button>
             )}
-            <img src="/Image/logo.png" alt="로고" className="kb-title-logo" />
+            <img src={`${process.env.PUBLIC_URL}/Image/logo.png`} alt="logo" className="kb-title-logo" />
           </div>
           {RightPage}
         </>
