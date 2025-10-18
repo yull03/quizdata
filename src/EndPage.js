@@ -48,12 +48,17 @@ const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }
   }, [rawScore]);
 
   return (
-    <section className="end-card" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
+    <section
+   className={`end-card ${scoreDone ? "done" : "counting"}`}
+   style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Image/paper.jpg)` }}>
       <header className="end-header">
         <div className="end-header__left">
           <h1 className="end-title">시험 결과</h1>
           <div className="end-score">
-            점수: <span className="end-score__value" aria-live="polite">{displayScore}</span> / 100
+            점수: <span
+   className={`end-score__value ${scoreDone ? "settled" : "animating"}`}
+   aria-live="polite">
+   {displayScore} </span> / 100
           </div>
 
           {/* 합격/불합격은 카운트 끝난 뒤에만 노출 */}
@@ -77,7 +82,7 @@ const EndPage = ({ questions, answers, onRestart, onGoToQuestion, onRetryWrong }
       <section className="end-wrong">
         <h2 className="end-section-title">틀린 문제</h2>
         {wrongIds.length === 0 ? (
-          <div className="end-empty">전부 정답입니다.</div>
+          <div className="end-empty">전부 정답입니다! 상품은 화비님께 달라고 하세요!</div>
         ) : (
           <div className="end-wrong__grid">
             {wrongIds.map((qid) => (

@@ -18,7 +18,8 @@ const CardPage = ({ q, value, onChange, S, ABCDE }) => {
                   checked={!!checked}
                   onChange={() => onChange(checked ? null : i)}  // 단일선택 강제
                 />
-                <span className="omr-label">{label}</span>
+                {/* ▼ 여기 한 줄만 수정 */}
+                <span className="omr-label">{i + 1}</span>
               </label>
             );
           })}

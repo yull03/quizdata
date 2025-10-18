@@ -70,7 +70,7 @@
       0 10px 24px rgba(0,0,0,.08);
     padding: 22px 20px 18px;
     position: relative;
-    height: 90vh;
+    height: 80vh;
   }
   
   .tp-question{
@@ -134,13 +134,17 @@
   .tp-choice-text{ flex:1; font-size: 28px;}
   
   /* 단답 안내 */
-  .tp-short-answer-note{ font-size:13px; color:#666; }
+  .tp-short-answer-note{ font-size:3rem; color: #b91c1c; }
   
   /* 하단: 페이지 네비(제출 자리로 이동) */
   .tp-bottom{
+    margin-top: 6rem;
     font-size: 32px;
     margin-bottom: 5px;
-    display:flex; align-items:center; justify-content:center;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
   }
   .tp-pager{
     display:flex; align-items:center; gap:12px;
@@ -214,8 +218,8 @@
   }
   
   .tp-submit-hint{
-    font-size: 20px;
-    color: #666;
+    font-size: 32px;
+    color: #b91c1c;
     text-align: center;
   }
   .kb-right-logo-wrap {
@@ -283,3 +287,60 @@
 .tp-header .react-switch {
   display: none !important;
 }
+.tp-choice.is-correct {
+    /* 선택 색 손대지 않고, 윤곽선/배경만 강조 */
+    box-shadow: inset 0 0 0 3px rgb(255, 217, 49), 0 4px 10px rgba(0,0,0,.08);
+    position: relative;
+  }
+  .tp-choice.is-correct::after {
+    content: "정답";
+    position: absolute;
+    top: 8px; right: 10px;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,.08);
+    background: #fff8d6;
+  }
+  
+  .tp-answer-hint{
+    margin-top: 12px;
+    padding: 10px 14px;
+    border: 2px dashed rgba(0,0,0,.15);
+    border-radius: 10px;
+    background: #fffef6;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;   /* 네 기본 스케일과 조화 */
+    font-weight: 700;
+  }
+  .tp-answer-hint .tp-answer-detail{
+    margin-left: 4px;
+    font-weight: 600;
+  }
+
+  .tp-choice.is-correct {
+    border-color: #b91c1c;            /* 테두리만 강조 */
+    box-shadow: inset 0 0 0 2px #b91c1c;
+    position: relative;
+  }
+  .tp-choice.is-correct::after {
+    content: "정답";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 800;
+    color: #b91c1c;
+    font-size: 24px;
+  }
+  
+  /* 주관식 정답 노출 */
+  .tp-answer-reveal {
+    margin-top: 8px;
+    font-weight: 800;
+    color: #b91c1c;
+    font-size: 32px;
+  }

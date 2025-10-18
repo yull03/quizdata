@@ -16,6 +16,7 @@ const TestPage = ({
   ABCDE,
   visibleIndices = null,
   onBackToStart = null,
+  revealSet = null,  // ← 추가
 }) => {
 
   const fmtTime = (sec) => {
@@ -48,7 +49,6 @@ const TestPage = ({
   const pageNow = current + 1;
   const pageTotal = total;
 
-  // 로컬 포맷터(상위에서 timeTxt 함수 주면 그걸 우선 사용)
   const fmtTimeLocal = (sec) => {
     if (sec == null) return "";
     const m = Math.floor(sec / 60);
@@ -60,13 +60,16 @@ const TestPage = ({
     typeof timeTxt === "string"   ? timeTxt :
     fmtTimeLocal(seconds);
 
+  // 이 문제를 공개할지 여부
+  const showReveal = !!(revealSet && revealSet.has(qIndex));
+
   /* ========== 좌측: 문제/선지/페이지 네비 ========== */
   const LeftPage = (
     <section className="tp-sheet" aria-labelledby="tp-question-title">
-<header className="tp-header">
-  <div className="tp-left" /> {/* 왼쪽 비워둠 */}
-  <div className="tp-pager-placeholder" />
-</header>
+      <header className="tp-header">
+        <div className="tp-left" />
+        <div className="tp-pager-placeholder" />
+      </header>
 
       <div className="tp-question">
         <h2 id="tp-question-title" className="tp-q-title">
@@ -77,10 +80,11 @@ const TestPage = ({
           <ul className="tp-choices" role="listbox" aria-label="선다형 보기">
             {q.choices.map((c, i) => {
               const selected = answers[qIndex] === i;
+              const correct = showReveal && i === q.answerIndex; // ← 정답 하이라이트
               return (
                 <li
                   key={i}
-                  className={`tp-choice ${selected ? "is-selected" : ""}`}
+                  className={`tp-choice ${selected ? "is-selected" : ""} ${correct ? "is-correct" : ""}`}
                   onClick={() => onChoiceClick(i)}
                   role="option"
                   aria-selected={selected}
@@ -89,19 +93,28 @@ const TestPage = ({
                     if (e.key === "Enter" || e.key === " ") onChoiceClick(i);
                   }}
                 >
-                  <span className="tp-choice-key">{ABCDE[i]}</span>
+                  <span className="tp-choice-key">{i + 1}</span>
                   <span className="tp-choice-text"> {c}</span>
                 </li>
               );
             })}
           </ul>
         ) : (
-          <div className="tp-short-answer-note">
-            답변은 우측 OMR 입력창에 작성한다.
-          </div>
+          <>
+            <div className="tp-short-answer-note">
+              답변은 우측 OMR 입력창에 작성 부탁하오. 안적으면 제출을 할 수 없소
+            </div>
+
+            {/* 주관식 정답 공개 */}
+            {showReveal && (
+              <div className="tp-answer-reveal" aria-live="polite">
+                정답: {Array.isArray(q.answer) ? q.answer.join(" / ") : String(q.answer)}
+              </div>
+            )}
+          </>
         )}
       </div>
-        
+
       <div className="tp-bottom">
         <div className="tp-pager" role="navigation" aria-label="문제 페이지">
           <button
@@ -128,13 +141,11 @@ const TestPage = ({
         </div>
       </div>
     </section>
-    
   );
 
   /* ========== 우측: 상단 타이머 + OMR + 제출 ========== */
   const RightPage = (
     <aside className="tp-omr" aria-label="OMR 카드">
-      {/* 책 안 우측 상단 타이머 고정 */}
       <div className="tp-omr-topbar">
         <div className="tp-timer" aria-live="polite">
           {timeDisplay}
@@ -172,7 +183,6 @@ const TestPage = ({
       left={LeftPage}
       right={
         <>
-          {/* 로고 왼쪽에 버튼 */}
           <div className="kb-right-topbar">
             {onBackToStart && (
               <button className="tp-btn tp-home" onClick={onBackToStart}>
@@ -181,7 +191,6 @@ const TestPage = ({
             )}
             <img src="/Image/logo.png" alt="로고" className="kb-title-logo" />
           </div>
-  
           {RightPage}
         </>
       }
