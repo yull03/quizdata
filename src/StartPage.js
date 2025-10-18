@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 
-/**
- * 표지 카드 위에 종이 여러 장이
- * 호버 시 오른쪽-아래 대각선으로 '촤라락' 펼쳐지는 효과.
- * 터치 기기에서는 탭 시 잠깐 펼쳐지도록 처리.
- */
 const StartPage = ({ total, limitMinutes, onStart }) => {
   const [leaving, setLeaving] = useState(false);
   const [name, setName] = useState("");

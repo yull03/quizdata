@@ -5,8 +5,7 @@ import EndPage from "./EndPage";
 import "./style/Main.scss";
 import "./App.scss";
 
-/* 설정 */
-const LIMIT_SECONDS = 40 * 60; // 40분
+const LIMIT_SECONDS = 40 * 60; // 타이머
 const ABCDE = ["A", "B", "C", "D", "E"];
 const timeTxt = (t) =>
   `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
@@ -33,7 +32,7 @@ const S = {
   }),
 };
 
-/* 샘플 문제 데이터 */
+/* 문제 데이터 */
 const QUESTIONS = [
     { id: 1, type: "mc", question: "화비의 X(구 트위터) 아이디는?", choices: ["1) DO77HBi_DoHwaBi","2) Do7HBi_DoHwaBi","3) Do77HBi_DoHwaBi","4) Do77HBe_DoHwaBe","5) Do77HBe_DoHwaBi"], answerIndex: 2 },
     { id: 2, type: "mc", question: "화비의 3D 대뷔 방송이 유튜브 '도화비' 채널에 업로드 된 날짜는 언제인가?", choices: ["1) 2025.07.22","2) 2025.07.25","3) 2025.07.28","4) 2025.07.29","5) 2025.07.31"], answerIndex: 1 },
