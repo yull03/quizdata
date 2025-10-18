@@ -12,11 +12,11 @@ const TestPage = ({
   answers,
   setAnswerAt,
   S,
-  timeTxt,           // 함수일 수도, 문자열일 수도 있음
+  timeTxt,           // 함수 or 문자열
   ABCDE,
   visibleIndices = null,
   onBackToStart = null,
-  revealSet = null,  // ← 추가
+  revealSet = null,
 }) => {
 
   const fmtTime = (sec) => {
@@ -60,10 +60,10 @@ const TestPage = ({
     typeof timeTxt === "string"   ? timeTxt :
     fmtTimeLocal(seconds);
 
-  // 이 문제를 공개할지 여부
+  // 문제 공개 여부
   const showReveal = !!(revealSet && revealSet.has(qIndex));
 
-  /* ========== 좌측: 문제/선지/페이지 네비 ========== */
+  /* 좌측: 문제/선지/페이지 네비 */
   const LeftPage = (
     <section className="tp-sheet" aria-labelledby="tp-question-title">
       <header className="tp-header">
@@ -143,7 +143,7 @@ const TestPage = ({
     </section>
   );
 
-  /* ========== 우측: 상단 타이머 + OMR + 제출 ========== */
+  /*  우측: 상단 타이머 + OMR + 제출 */
   const RightPage = (
     <aside className="tp-omr" aria-label="OMR 카드">
       <div className="tp-omr-topbar">

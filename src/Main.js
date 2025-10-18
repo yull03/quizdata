@@ -49,15 +49,15 @@ const QUESTIONS = [
     { id:13, type: "mc", question: "현재 화비의 방송 시간은 대부분 오후 2시 이다 오후 2시는 조선시대 때 몇시라고 하였는가?", choices: ["1) 이시 ","2) 술시 ","3) 미시 ","4) 축시","5) 해시"], answerIndex: 2 },
     { id:14, type: "mc", question: "도화비의 소개로 적절한 것은?", choices: ["1) 해태와 같이 여행하는 도깨비 ","2) 봉인에서 풀려 난 조선시대 도깨비","3) 집에서 쫏겨나 현대로 이사 온 도깨비","4) 해태탈을 좋아하는 도깨비 ","5) 족자봉을 통해 현대로 넘어온 도깨비 "], answerIndex: 3 },
     { id:15, type: "mc", question: "화비는 4월 달 가족과 일본 여행을 갔다고 한다 일본여행에서 화비가 가지 않은 곳은?", choices: ["1)오사카 ","2) 나라 ","3) 고베 ","4) 교토 ","5) 아라시야마"], answerIndex: 4 },
-    { id:16, type:"sa", question:"화비의 다음 주년방송 날짜를 적으시오.(띄어쓰기 필수)(예시: 0000년 0월 00일)", answer:["2028년 2월 29일"] },
-    { id:17, type:"sa", question:"현재 팬카페 '도화비서당'의 회원수는 몇명인지 적으시오.", answer:["49명","49"]},
+    { id:16, type:"sa", question:"화비의 대뷔방송 날짜를 적으시오.(띄어쓰기 필수)(예시: 0000년 0월 00일)", answer:["2028년 2월 29일"] },
+    { id:17, type:"sa", question:"현재 팬카페 '도화비서당'의 회원수는 몇명인지 적으시오.", answer:["50명","50"]},
     { id:18, type:"sa", question:"10월11일 화비가 '아무말이나 하시게'에 올렸던 개시글의 제목은?", answer:["사주도 인정한 입닫으면 분내나는 스트리머"] },
     { id:19, type:"sa", question:"화비의 치지직 첫 생방송 날짜를 적으시오. (띄어쓰기 필수)(예시: 0000년 0월 00일)", answer:["2024년 2월 04일","2024년 2월 4일"] },
     { id:20, type:"sa", question:"애교 해주세요! '점수를 받으려면 '네' 를 작성해 주시길 바랍니다. 애교를 못하시겠다면... 뭐... 점수도 못 얻고... 도동이는 슬퍼지고...", answer:["네"] },
   ];
 
 const Main = () => {
-  const [phase, setPhase] = useState("start"); // start | exam | end
+  const [phase, setPhase] = useState("start");
   const [current, setCurrent] = useState(0);
   const [seconds, setSeconds] = useState(LIMIT_SECONDS);
   const [answers, setAnswers] = useState(() =>
