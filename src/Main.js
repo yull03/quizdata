@@ -5,7 +5,7 @@ import EndPage from "./EndPage";
 import "./style/Main.scss";
 import "./App.scss";
 
-const LIMIT_SECONDS = 40 * 60; // 타이머
+const LIMIT_SECONDS = 60 * 60; // 타이머
 const ABCDE = ["A", "B", "C", "D", "E"];
 const timeTxt = (t) =>
   `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
@@ -34,26 +34,36 @@ const S = {
 
 /* 문제 데이터 */
 const QUESTIONS = [
-    { id: 1, type: "mc", question: "화비의 X(구 트위터) 아이디는?", choices: ["1) DO77HBi_DoHwaBi","2) Do7HBi_DoHwaBi","3) Do77HBi_DoHwaBi","4) Do77HBe_DoHwaBe","5) Do77HBe_DoHwaBi"], answerIndex: 2 },
-    { id: 2, type: "mc", question: "화비의 3D 대뷔 방송이 유튜브 '도화비' 채널에 업로드 된 날짜는 언제인가?", choices: ["1) 2025.07.22","2) 2025.07.25","3) 2025.07.28","4) 2025.07.29","5) 2025.07.31"], answerIndex: 1 },
-    { id: 3, type: "mc", question: "최근 10월14일 깜짝 노래방송에서 부르지 않은 곡은 무엇인가?", choices: ["1) 오르트구름","2) Flos","3) 염라","4) 여우비","5) 잇테"], answerIndex: 2 },
-    { id: 4, type: "mc", question: "화비가 실크송 하던 어느 날 황야날개(회색황야 지역 보스) 클리어까지의 트라이 횟수는  멋번인가?", choices: ["1) 14회", "2) 19회" ,"3) 21회","4) 28회","5) 31회"], answerIndex: 3 },
-    { id: 5, type: "mc", question: "도화비 팬카페 재오픈 기념 월페이퍼 배포 날짜는 언제인가?", choices: ["1) 10월8일","2) 10월9","3) 10월10일","4) 10월11일","5) 10월12일"], answerIndex: 2 },
-    { id: 6, type: "mc", question: "최근 화비는 아팠던 적이 있어 병원을 가서 진단을 받은적이 있다. 의사에게 진단 받은 병명은 무엇인가?", choices: ["1) 고관절 충돌 증후군","2)고관절 유착 증후군","3)고관절 신경증","4) 허리디스크","5) 말초신경병증"], answerIndex: 0 },
-    { id: 7, type: "mc", question: "도화비의 생일이 언제인지 고르시오.", choices: ["1) 5월 21일 ","2) 5월 25일 ","3) 5월27일 ","4) 5월28일 ","5) 5월 29일 "], answerIndex: 1 },
-    { id: 8, type: "mc", question: "화비는 10월 15일 합방을 하면서 미소녀에게 상습 무례를 범할 때 했던 말이 아닌것은? ", choices: ["1) 내성발톱 있으세요? ","2) 하코챤님 목줄, 욕 취향 이신가보네요. ","3) 앞으로 언니라고 불러요. 서열정리 끝났네요. ","4) 이 새끼가 ","5) 때릴거면은 엉덩이 때려주세요 "], answerIndex: 0 },
-    { id: 9, type: "mc", question: "화비의 사랑스럽고 매우 귀여운 반려견의 이름은?", choices: ["1) 햄이","2) 솜이","3) 설몽이 ","4) 구름이","5) 하몽이 "], answerIndex: 3 },
-    { id:10, type: "mc", question: "화비는 편식을 한다 보기 중에 화비가 제일 싫어하는것을 고르시오.", choices: ["1) 오이","2) 콩나물","3) 막창","4) 굴(석화)","5) 팥"], answerIndex: 4 },
-    { id:11, type: "mc", question: "최근 화비는 대학 아야기를 하였다 2026년에 가려고 하는 학과는 어디인가?", choices: ["1) (반려)동물 보건학과 ","2) 애견 미용과 ","3) (반려)동물 식품과학과 ","4) (반려)동물 사회학과 ","5)(반려)동물산업학과 "], answerIndex: 0 },
-    { id:12, type: "mc", question: "10월 13일 화비는 게임 중 노래를 하나 재밌게 불렀다 불렀던 노래의 제목은?", choices: ["1)  둥글게 둥글게","2) 회전목마","3) 까만 리무진","4) 창귀","5) 달려라 하니"], answerIndex: 1 },
-    { id:13, type: "mc", question: "현재 화비의 방송 시간은 대부분 오후 2시 이다 오후 2시는 조선시대 때 몇시라고 하였는가?", choices: ["1) 이시 ","2) 술시 ","3) 미시 ","4) 축시","5) 해시"], answerIndex: 2 },
-    { id:14, type: "mc", question: "도화비의 소개로 적절한 것은?", choices: ["1) 해태와 같이 여행하는 도깨비 ","2) 봉인에서 풀려 난 조선시대 도깨비","3) 집에서 쫏겨나 현대로 이사 온 도깨비","4) 해태탈을 좋아하는 도깨비 ","5) 족자봉을 통해 현대로 넘어온 도깨비 "], answerIndex: 3 },
-    { id:15, type: "mc", question: "화비는 4월 달 가족과 일본 여행을 갔다고 한다 일본여행에서 화비가 가지 않은 곳은?", choices: ["1)오사카 ","2) 나라 ","3) 고베 ","4) 교토 ","5) 아라시야마"], answerIndex: 4 },
-    { id:16, type:"sa", question:"화비의 대뷔방송 날짜를 적으시오.(띄어쓰기 필수)(예시: 0000년 0월 00일)", answer:["2028년 2월 29일"] },
-    { id:17, type:"sa", question:"현재 팬카페 '도화비서당'의 회원수는 몇명인지 적으시오.", answer:["50명","50"]},
-    { id:18, type:"sa", question:"10월11일 화비가 '아무말이나 하시게'에 올렸던 개시글의 제목은?", answer:["사주도 인정한 입닫으면 분내나는 스트리머"] },
-    { id:19, type:"sa", question:"화비의 치지직 첫 생방송 날짜를 적으시오. (띄어쓰기 필수)(예시: 0000년 0월 00일)", answer:["2024년 2월 04일","2024년 2월 4일"] },
-    { id:20, type:"sa", question:"애교 해주세요! '점수를 받으려면 '네' 를 작성해 주시길 바랍니다. 애교를 못하시겠다면... 뭐... 점수도 못 얻고... 도동이는 슬퍼지고...", answer:["네"] },
+    { id: 1, type: "mc", question: "화비의 이메일은 무엇인가?", choices: ["heche0525@gmail.com","hachi0525@gmail.com","hechi0525@gmail.com","hechie0525@gmail.com","hechee0525@gmail.comi"], answerIndex: 2 },
+    { id: 2, type: "mc", question: "화비의 3D 대뷔 방송이 유튜브 '도화비' 채널에 업로드 된 날짜는 언제인가?", choices: ["2025.07.22","2025.07.25","2025.07.28","2025.07.29","2025.07.31"], answerIndex: 1 },
+    { id: 3, type: "mc", question: "최근 10월14일 깜짝 노래방송에서 부르지 않은 곡은 무엇인가?", choices: ["오르트구름","Flos","인연","여우비","잇테"], answerIndex: 2 },
+    { id: 4, type: "mc", question: "화비가 실크송 하던 날 보스 '황야날개' 클리어까지의 트라이 횟수는  멋번인가?", choices: ["14회", "19회" ,"21회","28회","31회"], answerIndex: 3 },
+    { id: 5, type: "mc", question: "도화비 팬카페 재오픈 기념 월페이퍼 배포 날짜는 언제인가?", choices: ["10월8일","10월9","10월10일","10월11일","10월12일"], answerIndex: 2 },
+    { id: 6, type: "mc", question: "최근 화비는 아팠던 적이 있어 병원을 가서 진단을 받은적이 있다. 의사에게 진단 받은 병명은 무엇인가?", choices: ["고관절 충돌 증후군","고관절 유착 증후군","고관절 신경증","허리디스크","퇴행성 관절염"], answerIndex: 0 },
+    { id: 7, type: "mc", question: "도화비의 생일이 언제인지 고르시오.", choices: ["5월 21일 ","5월 25일 ","5월27일 ","5월28일 ","5월 29일 "], answerIndex: 1 },
+    { id: 8, type: "mc", question: "(나락 문제) 독도라고 정확히 표기 된 것을 고르시오. ", choices: ["ด็อกก์โด ","ด็อก-โด ","โตกโต ","ด็อกโด ","ด็อคโด "], answerIndex: 3 },
+    { id: 9, type: "mc", question: "화비의 사랑스럽고 매우 귀여운 반려견의 이름은?", choices: ["햄이","솜이","설몽이 ","구름이","하몽이 "], answerIndex: 3 },
+    { id:10, type: "mc", question: "화비는 편식을 한다 보기 중에 화비가 제일 싫어하는것을 고르시오.", choices: ["오이","콩나물","생마늘","굴(석화)","팥"], answerIndex: 4 },
+    { id:11, type: "mc", question: "최근 화비는 대학 아야기를 하였다 2026년에 가려고 하는 학과는 어디인가?", choices: ["동물 보건학과 ","애견 미용과 ","동물 식품과학과 ","동물 사회학과 ","동물산업학과 "], answerIndex: 0 },
+    { id:12, type: "mc", question: "10월 13일 화비는 게임 중 노래를 하나 재밌게 불렀다 불렀던 노래의 제목은?", choices: ["둥글게 둥글게","회전목마","쎄쎄쎄","창귀","달려있는 하니"], answerIndex: 1 },
+    { id:13, type: "mc", question: "(상식 문제) 측우기를 기획, 추진을 한 인물은 누구인가??", choices: ["장영실 ","정약용 ","세종대왕 ","이천","도화비"], answerIndex: 2 },
+    { id:14, type: "mc", question: "도화비의 소개로 적절한 것은?", choices: ["해태와 같이 여행하는 도깨비 ","봉인에서 풀려 난 조선시대 도깨비","집에서 쫏겨나 현대로 이사 온 도깨비","해태탈을 좋아하는 도깨비 ","족자봉을 통해 현대로 넘어온 도깨비 "], answerIndex: 3 },
+    { id:15, type: "mc", question: "(당당해 지셔야 합니다.) 화비가 포켓몬 가능 불가능 에서 불가능이라 한것은??", choices: ["스이쿤 ","뮤츠 ","밤선인 ","가디안 ","란쿨루스 "], answerIndex: 4 },
+    { id:16, type: "mc", question: "화비의 현재 치지직 팔로워 수는?", choices: ["1.2만 ","1.3만 ","1.4만 ","1.5만 ","1.6만"], answerIndex: 2 },
+    { id:17, type: "mc", question: "화비의 도깨비 빤스는 깨끗하다?", choices: ["아니어야만해 ","아닐껄? ","아니오 ","네 ","네니오"], answerIndex: 2 },
+    { id:18, type: "mc", question: "화비는 취미로 '이것'을 배우고 있다 '이것'은 무엇인가?", choices: ["프로그래밍 ","보디빌더 ","꽹가리 ","장구 ","프로 레슬링"], answerIndex: 2 },
+    { id:19, type: "mc", question: "화비의 포켓몬A-Z 뚜꾸리의 이름은?", choices: ["석쇠 불고기","크리스 P 베이컨 ","불족발 ","두루치기 ","제육"], answerIndex: 4 },
+    { id:20, type: "mc", question: "화비는 매우 큰 꿈을 가지고 있다 그 꿈은 무엇인가?", choices: ["'아라하시 타비'님과의 합방 ","세후 문제없는 50억 입금 ","연애 ","인싸 만학도 ","빌게이츠의 삶 살기"], answerIndex: 0 },
+    { id:21, type:"sa", question: "(상식 문제) 도깨비를 시각적으로 표현한 내용이 실록에 총 35건 이상 ‘oo’로 표현된 기사가 있고, 이 oo가 곧 도깨비-유사 존재로 해석된다고 분석하고 있습니다. oo 의 단어를 적으시오.", answer:["귀매"] },
+    { id:22, type:"sa", question: "(이건 틀리면 안될텐데) '이토 히로부미'는 어떤 사람인가?.", answer:["정말 나쁜 사람이다","정말나쁜사람이다", "정말 나쁜사람 이다"] },
+    { id:23, type:"sa", question: "화비가 좋아하는 LCK 팀 이름은?(대문자로 적어주세요.)", answer:["T1"] },
+    { id:24, type:"sa", question: "최근에 구름이가 미용을 했다 구름이 미용날짜는 언제인가?(예시 : 00월 00일(띄어쓰기필수)", answer:["10월 21일"] },
+    { id:25, type:"sa", question: "도화비 방송 내수용 밈으로 이 단어를 말하고 뒤에 '괄호()'로 이떠한 단어를 작성한다 이 '내수용 밈'은 어떤것인가?", answer:["언니","언니(덜렁)","언니(굵직)"] },
+    { id:26, type:"sa", question:"화비의 다음 대뷔 기념방송 날짜를 적으시오.(띄어쓰기 필수)(예시: 0000년 0월 00일)", answer:["2028년 2월 29일"] },
+    { id:27, type:"sa", question:"현재 팬카페 '도화비서당'의 회원수는 몇명인지 적으시오.", answer:["51명","51"]},
+    { id:28, type:"sa", question:"(상식문제) 조선왕조에서 게장을 먹고 사망한 왕의 이름은?", answer:["경종"] },
+    { id:29, type:"sa", question:"화비의 치지직 첫 생방송 날짜를 적으시오. (띄어쓰기 필수)(예시: 0000년 0월 00일)", answer:["2024년 2월 04일","2024년 2월 4일"] },
+    { id:30, type:"sa", question:"애교 또 해주세요! 한번 더 시킬 줄은 몰랐죠? '점수를 받으려면 '네' 를 작성해 주시길 바랍니다. 이번에 또 걸리신거면 애교를 하고 싶으신거 같아서 특별히 안지워 봤어요. 감사합니다", answer:["네"] },
   ];
 
 const Main = () => {
@@ -156,7 +166,7 @@ const Main = () => {
         <>
           <StartPage
             total={QUESTIONS.length}
-            limitMinutes={Math.floor(LIMIT_SECONDS / 60)}
+            limitMinutes={Math.floor(LIMIT_SECONDS / 80)}
             onStart={startExam}
             S={S}
           />
