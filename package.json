@@ -1,5 +1,4 @@
 {
-  "homepage": "https://yull03.github.io/quizdata/",
   "name": "quizdata",
   "version": "0.1.0",
   "private": true,
@@ -19,9 +18,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +39,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "gh-pages": "^6.3.0",
+    "master": "^1.0.18"
   }
 }
