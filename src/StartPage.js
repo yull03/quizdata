@@ -87,9 +87,9 @@ const StartPage = ({ total, limitMinutes, onStart }) => {
           </div>
 
           <p className="startcard__meta">
-            총 {total}문제
+            총 30 문제
             <span className="meta-divider">-</span>
-            풀이시간 {limitMinutes}분
+            풀이시간 60 분
           </p>
 
           <div className="startcard__seal">
