@@ -34,7 +34,7 @@ const S = {
 
 /* 문제 데이터 */
 const QUESTIONS = [
-    { id: 1, type: "mc", question: "화비의 이메일은 무엇인가?", choices: ["heche0525@gmail.com","hachi0525@gmail.com","hechi0525@gmail.com","hechie0525@gmail.com","hechee0525@gmail.comi"], answerIndex: 2 },
+    { id: 1, type: "mc", question: "화비의 이메일로 알맞은 주소는 무엇인가?", choices: ["heche0525@gmail.com","hachi0525@gmail.com","hechi0525@gmail.com","hechie0525@gmail.com","hechee0525@gmail.comi"], answerIndex: 2 },
     { id: 2, type: "mc", question: "화비의 3D 대뷔 방송이 유튜브 '도화비' 채널에 업로드 된 날짜는 언제인가?", choices: ["2025.07.22","2025.07.25","2025.07.28","2025.07.29","2025.07.31"], answerIndex: 1 },
     { id: 3, type: "mc", question: "최근 10월14일 깜짝 노래방송에서 부르지 않은 곡은 무엇인가?", choices: ["오르트구름","Flos","인연","여우비","잇테"], answerIndex: 2 },
     { id: 4, type: "mc", question: "화비가 실크송 하던 날 보스 '황야날개' 클리어까지의 트라이 횟수는  멋번인가?", choices: ["14회", "19회" ,"21회","28회","31회"], answerIndex: 3 },
@@ -48,9 +48,9 @@ const QUESTIONS = [
     { id:12, type: "mc", question: "10월 13일 화비는 게임 중 노래를 하나 재밌게 불렀다 불렀던 노래의 제목은?", choices: ["둥글게 둥글게","회전목마","쎄쎄쎄","창귀","달려있는 하니"], answerIndex: 1 },
     { id:13, type: "mc", question: "(상식 문제) 측우기를 기획, 추진을 한 인물은 누구인가??", choices: ["장영실 ","정약용 ","세종대왕 ","이천","도화비"], answerIndex: 2 },
     { id:14, type: "mc", question: "도화비의 소개로 적절한 것은?", choices: ["해태와 같이 여행하는 도깨비 ","봉인에서 풀려 난 조선시대 도깨비","집에서 쫏겨나 현대로 이사 온 도깨비","해태탈을 좋아하는 도깨비 ","족자봉을 통해 현대로 넘어온 도깨비 "], answerIndex: 3 },
-    { id:15, type: "mc", question: "(당당해 지셔야 합니다.) 화비가 포켓몬 가능 불가능 에서 불가능이라 한것은??", choices: ["스이쿤 ","뮤츠 ","밤선인 ","가디안 ","란쿨루스 "], answerIndex: 4 },
+    { id:15, type: "mc", question: "도화비의 트위터 가입일은??", choices: ["2023년 4월 ","2023년 5월 ","2023년 6월 ","2023년 7월 ","2023년 8월 "], answerIndex: 2 },
     { id:16, type: "mc", question: "화비의 현재 치지직 팔로워 수는?", choices: ["1.2만 ","1.3만 ","1.4만 ","1.5만 ","1.6만"], answerIndex: 2 },
-    { id:17, type: "mc", question: "화비의 도깨비 빤스는 깨끗하다?", choices: ["아니어야만해 ","아닐껄? ","아니오 ","네 ","네니오"], answerIndex: 2 },
+    { id:17, type: "mc", question: "도깨비 빤스는 깨끗하다?", choices: ["아니어야만해 ","아닐껄? ","아니오 ","네 ","네니오"], answerIndex: 2 },
     { id:18, type: "mc", question: "화비는 취미로 '이것'을 배우고 있다 '이것'은 무엇인가?", choices: ["프로그래밍 ","보디빌더 ","꽹가리 ","장구 ","프로 레슬링"], answerIndex: 2 },
     { id:19, type: "mc", question: "화비의 포켓몬A-Z 뚜꾸리의 이름은?", choices: ["석쇠 불고기","크리스 P 베이컨 ","불족발 ","두루치기 ","제육"], answerIndex: 4 },
     { id:20, type: "mc", question: "화비는 매우 큰 꿈을 가지고 있다 그 꿈은 무엇인가?", choices: ["'아라하시 타비'님과의 합방 ","세후 문제없는 50억 입금 ","연애 ","인싸 만학도 ","빌게이츠의 삶 살기"], answerIndex: 0 },
