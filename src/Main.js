@@ -51,7 +51,7 @@ const QUESTIONS = [
     { id:15, type: "mc", question: "도화비의 트위터 가입일은??", choices: ["2023년 4월 ","2023년 5월 ","2023년 6월 ","2023년 7월 ","2023년 8월 "], answerIndex: 2 },
     { id:16, type: "mc", question: "화비의 현재 치지직 팔로워 수는?", choices: ["1.2만 ","1.3만 ","1.4만 ","1.5만 ","1.6만"], answerIndex: 2 },
     { id:17, type: "mc", question: "도깨비 빤스는 깨끗하다?", choices: ["아니어야만해 ","아닐껄? ","아니오 ","네 ","네니오"], answerIndex: 2 },
-    { id:18, type: "mc", question: "화비는 취미로 '이것'을 배우고 있다 '이것'은 무엇인가?", choices: ["프로그래밍 ","보디빌더 ","꽹가리 ","장구 ","프로 레슬링"], answerIndex: 2 },
+    { id:18, type: "mc", question: "화비는 취미로 '이것'을 배우고 있다 '이것'은 무엇인가?", choices: ["프로그래밍 ","보디빌더 ","꽹과리 ","장구 ","프로 레슬링"], answerIndex: 2 },
     { id:19, type: "mc", question: "화비의 포켓몬A-Z 뚜꾸리의 이름은?", choices: ["석쇠 불고기","크리스 P 베이컨 ","불족발 ","두루치기 ","제육"], answerIndex: 4 },
     { id:20, type: "mc", question: "화비는 매우 큰 꿈을 가지고 있다 그 꿈은 무엇인가?", choices: ["'아라하시 타비'님과의 합방 ","세후 문제없는 50억 입금 ","연애 ","인싸 만학도 ","빌게이츠의 삶 살기"], answerIndex: 0 },
     { id:21, type:"sa", question: "(상식 문제) 도깨비를 시각적으로 표현한 내용이 실록에 총 35건 이상 ‘oo’로 표현된 기사가 있고, 이 oo가 곧 도깨비-유사 존재로 해석된다고 분석하고 있습니다. oo 의 단어를 적으시오.", answer:["귀매"] },
